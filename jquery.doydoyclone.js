@@ -44,6 +44,23 @@
 			return this;
 		}
 		
+		$.fn.doydoyCloneAfter = function(params){
+			params = $.extend( params, {method : "after"});
+			return this.doydoyClone(params);
+		}		
+		$.fn.doydoyCloneBefore = function(params){
+			params = $.extend( params, {method : "before"});
+			return this.doydoyClone(params);
+		}
+		$.fn.doydoyCloneAppend = function(params){
+			params = $.extend( params, {method : "append"});
+			return this.doydoyClone(params);
+		}		
+		$.fn.doydoyClonePrepend = function(params){
+			params = $.extend( params, {method : "prepend"});
+			return this.doydoyClone(params);
+		}
+		
         // définition du plugin jQuery
         $.fn.doydoyClone = function(params) {
 		
@@ -53,10 +70,8 @@
 		
 			// Fusionner les paramètres par défaut et ceux de l'utilisateur
 			params = $.extend( {
-								after : "",
-								before: "",
-								append: "",
-								prepend: "",
+								method : "",
+								target: "",
 								new_name : false,
 								prefix_new_elt : glob_prefix_new_elt
 								}, 
@@ -66,18 +81,17 @@
 			
 			$.doydoy_all_clones[doydoy_counter] = new Array();
 			
-			if (params.after == ""){
-				if (params.append != ""){
-					function_plugin_name = 'append';
-				}
-				else if (params.prepend != ""){
-					function_plugin_name = 'prepend';
-				}
-				else if (params.before != ""){
-					function_plugin_name = 'before';
-				}
+			switch (params.method) {
+				case "after":
+				case "before":
+				case "append":
+				case "prepend":
+					function_plugin_name = params.method;
+					break;
+				default: 
+					function_plugin_name = 'after';
+					break;
 			}
-			
 			
 			// Traverser tous les nœuds.
 			this.each(function() {
@@ -102,17 +116,8 @@
 					clones_group[id_elt]['counter'] = 0;
 				}				
 				
-				if (params.after != "")
-					dernier_element = params.after;
-				else if (params.before != ""){
-					dernier_element = params.before;
-				}
-				else if (params.append != ""){
-					dernier_element = params.append;
-				}
-				else if (params.prepend != ""){
-					dernier_element = params.prepend;
-				}
+				if (params.target != "")
+					dernier_element = params.target;
 				else{
 					if (0 == clones_group[id_elt]['counter'])
 						dernier_element = $(this);
@@ -167,4 +172,5 @@
 			// Permettre le chaînage par jQuery
 			return this;
         };
+		
 })(jQuery);
