@@ -42,7 +42,7 @@
         return doydoy_last_clones;
     }
 
-    // Récupération de l'id du dernier conteneur(parent) créé
+    // Récupération de l'id du dernier conteneur (parent) créé
     $.fn.doydoyGetLastNewId = function(){
         return doydoy_new_id;
     }
@@ -95,10 +95,15 @@
                             method         : "",
                             target         : "",
                             new_name       : false,
+                            new_all_name   : false,
+                            new_all_id     : false,
                             prefix_new_elt : glob_prefix_new_elt
                             },
                             params);
 
+        if (params.new_all_name) 
+            params.new_name = true;
+                            
         // Incrémentation du compter pour commencer à avoir des id à partir de 1 (idfoo_1) et supérieur au dernier clonage
         doydoy_counter++;
 
@@ -159,9 +164,18 @@
                     $(this).attr('id', doydoy_new_id);
 
                     // Détermination du nouveau nom du parent cloner si on a choisi l'option
-                    if (params.new_name){
-                        if (typeof($(this).attr('name')) != 'undefined'){
-                            $(this).attr('name', $(this).attr('name') + "_" + doydoy_counter_clone);
+                    var new_name = "";
+                    if (typeof($(this).attr('name')) != 'undefined'){
+                        new_name = $(this).attr('name');
+                        if (params.new_name){
+                            new_name += "_" + doydoy_counter_clone;
+                            $(this).attr('name', new_name);
+                        }
+                    }
+                    else{
+                        if (params.new_name){
+                            new_name = doydoy_new_id;
+                            $(this).attr('name', new_name);
                         }
                     }
                     // Sauvegarde de ce nouveau parent dans la liste de tous les éléments cloner depuis le début
@@ -169,17 +183,17 @@
                         doydoy_all_clones[doydoy_counter_clone - 1] = new Array();
                     }
 
-                    doydoy_all_clones[doydoy_counter_clone - 1]['parent'] = {id:doydoy_new_id,
-                                                                             id_before:id_elt,
-                                                                             num_clone: doydoy_counter_clone,
-                                                                             name:((typeof($(this).attr('name')) == 'undefined') ? "" : $(this).attr('name')),
-                                                                             elt:$(this)};
+                    doydoy_all_clones[doydoy_counter_clone - 1]['parent'] = {id        : doydoy_new_id,
+                                                                             id_before : id_elt,
+                                                                             num_clone : doydoy_counter_clone,
+                                                                             name      : new_name,
+                                                                             elt       : $(this)};
                     // Sauvegarde de ce nouveau parent dans la liste de tous les éléments cloner lors du dernier clonage
-                    doydoy_last_clones['parent'] = {id:doydoy_new_id,
-                                                    id_before:id_elt,
-                                                    num_clone: doydoy_counter_clone,
-                                                    name:((typeof($(this).attr('name')) == 'undefined') ? "" : $(this).attr('name')),
-                                                    elt:$(this)};
+                    doydoy_last_clones['parent'] = {id        : doydoy_new_id,
+                                                    id_before : id_elt,
+                                                    num_clone : doydoy_counter_clone,
+                                                    name      : new_name,
+                                                    elt       : $(this)};
                     // incrémentation du numéro de clonage pour éviter d'voir les mêmes ids
                     doydoy_counter_clone++;
                 });
@@ -191,49 +205,82 @@
             // Initialisation de la liste des derniers enfants créés
             doydoy_last_clones['child'] = new Array();
 
+            // Numéro de l'enfant par rapport à son parent
+            var cpt_child = 0;
+            // id d'origine de l'enfant avant son nouvel id
+            var id_before = "";
+            // nouvel id de l'enfant
+            var new_id = "";
+            // nouveau nom de l'enfant
+            var new_name = "";
+                
             // Ré-attribution des id des élements des conteneurs qui ont été créés
             for(var i = doydoy_counter; i < (doydoy_counter_clone); i++){
-                // Numéro de l'enfant par rapport à son parent
-                var cpt_child = 0;
-                // id d'origine de l'enfant avant son nouvel id
-                var id_before = "";
+                cpt_child = 0;
 
                 // parcourt de tous les enfants du conteneur
                 $("#" + id_elt + "_" + i + " *").each(function(){
-                    // Innitialisation de l'id d'origine (car il n'en avait pas forcément)
-                    id_before = "";
-
+                    
                     // Détermination du nouvel id de l'enfant en court
                     if (typeof($(this).attr('id')) != 'undefined'){
-                        // rcupération de l'id d'origine de l'enfant
+                        // récupération de l'id d'origine de l'enfant
                         id_before = $(this).attr('id');
+                        new_id    = id_before + "_" + i;
                         // changement de l'id
-                        $(this).attr('id', id_before + "_" + i);
+                        $(this).attr('id', new_id);
                     }
-                    // changement du nom si on l'a demandé (params.new_name : true)
-                    if (params.new_name){
-                        if (typeof($(this).attr('name')) != 'undefined'){
-                            $(this).attr('name', $(this).attr('name') + "_" + i);
+                    else {
+                        // Initialisation de l'id d'origine et du nouvel id (car il n'en avait pas forcément)
+                        id_before = "";
+                        if (params.new_all_id){
+                            if ($(this).attr('name') != undefined)
+                                new_id = params.prefix_new_elt + $(this).attr('name') + "_" + i;
+                            else
+                                new_id = params.prefix_new_elt + $(this).prop('tagName') + "_" + i;   
+                            // changement de l'id
+                            $(this).attr('id', new_id);                         
                         }
+                        else
+                            new_id = "";
+                    }
+                    
+                    // changement du nom si on l'a demandé (params.new_name : true)
+                    if (typeof($(this).attr('name')) != 'undefined'){
+                        new_name = $(this).attr('name');
+                        if (params.new_name){
+                            new_name += "_" + i;
+                            $(this).attr('name', new_name);
+                        }
+                    }
+                    else{
+                        if (params.new_all_name) {
+                            if (new_id != "")
+                                new_name = new_id;
+                            else
+                                new_name = params.prefix_new_elt + $(this).prop('tagName') + "_" + i;
+                            $(this).attr('name', new_name);
+                        }
+                        else
+                            new_name = "";
                     }
 
                     // Sauvegarde de ce nouvel enfant dans la liste de tous les éléments cloner depuis le début
                     if (typeof(doydoy_all_clones[i - 1]['child']) == 'undefined'){
                         doydoy_all_clones[i - 1]['child'] = new Array();
                     }
-                    doydoy_all_clones[i - 1]['child'][cpt_child] = {id:((typeof($(this).attr('id')) == 'undefined') ? "" : $(this).attr('id')),
-                                                                    id_before:id_before,
-                                                                    num_clone: i,
-                                                                    name:((typeof($(this).attr('name')) == 'undefined') ? "" : $(this).attr('name')),
-                                                                    elt:$(this)};
+                    doydoy_all_clones[i - 1]['child'][cpt_child] = {id        : new_id,
+                                                                    id_before : id_before,
+                                                                    num_clone : i,
+                                                                    name      : new_name,
+                                                                    elt       : $(this)};
 
                     // Sauvegarde de ce nouvel enfant dans la liste de tous les éléments cloner lors du dernier clonage
                     if (i == (doydoy_counter_clone - 1)){
-                        doydoy_last_clones['child'][cpt_child] = {id:((typeof($(this).attr('id')) == 'undefined') ? "" : $(this).attr('id')),
-                                                                  id_before:id_before,
-                                                                  num_clone: i,
-                                                                  name:((typeof($(this).attr('name')) == 'undefined') ? "" : $(this).attr('name')),
-                                                                  elt:$(this)};
+                        doydoy_last_clones['child'][cpt_child] = {id        : new_id,
+                                                                  id_before : id_before,
+                                                                  num_clone : i,
+                                                                  name      : new_name,
+                                                                  elt       : $(this)};
                         // fonction appelée après la création d'un nouvel enfant du dernier conteneur
                         if (params.each_last_child_callback != undefined){
                             params.each_last_child_callback(cpt_child);
