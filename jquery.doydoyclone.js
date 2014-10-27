@@ -247,7 +247,7 @@
                     // changement du nom si on l'a demandé (params.new_name : true)
                     if (typeof($(this).attr('name')) != 'undefined'){
                         new_name = $(this).attr('name');
-                        if (params.new_name){
+                        if (params.new_all_name){
                             new_name += "_" + i;
                             $(this).attr('name', new_name);
                         }
