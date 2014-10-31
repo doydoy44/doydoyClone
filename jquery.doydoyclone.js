@@ -179,11 +179,11 @@
                         }
                     }
                     // Sauvegarde de ce nouveau parent dans la liste de tous les éléments cloner depuis le début
-                    if (typeof(doydoy_all_clones[doydoy_counter_clone - 1]) == 'undefined'){
-                        doydoy_all_clones[doydoy_counter_clone - 1] = new Array();
+                    if (typeof(doydoy_all_clones['"' + (doydoy_counter_clone - 1) + '"']) == 'undefined'){
+                        doydoy_all_clones['"' + (doydoy_counter_clone - 1) + '"'] = new Array();
                     }
 
-                    doydoy_all_clones[doydoy_counter_clone - 1]['parent'] = {id        : doydoy_new_id,
+                    doydoy_all_clones['"' + (doydoy_counter_clone - 1) + '"']['parent'] = {id        : doydoy_new_id,
                                                                              id_before : id_elt,
                                                                              num_clone : doydoy_counter_clone,
                                                                              name      : new_name,
@@ -265,10 +265,10 @@
                     }
 
                     // Sauvegarde de ce nouvel enfant dans la liste de tous les éléments cloner depuis le début
-                    if (typeof(doydoy_all_clones[i - 1]['child']) == 'undefined'){
-                        doydoy_all_clones[i - 1]['child'] = new Array();
+                    if (typeof(doydoy_all_clones['"' + (i - 1) + '"']['child']) == 'undefined'){
+                        doydoy_all_clones['"' + (i - 1) + '"']['child'] = new Array();
                     }
-                    doydoy_all_clones[i - 1]['child'][cpt_child] = {id        : new_id,
+                    doydoy_all_clones['"' + (i - 1) + '"']['child'][cpt_child] = {id        : new_id,
                                                                     id_before : id_before,
                                                                     num_clone : i,
                                                                     name      : new_name,
