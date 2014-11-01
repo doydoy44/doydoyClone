@@ -179,15 +179,15 @@
                         }
                     }
                     // Sauvegarde de ce nouveau parent dans la liste de tous les éléments cloner depuis le début
-                    if (typeof(doydoy_all_clones['"' + (doydoy_counter_clone - 1) + '"']) == 'undefined'){
-                        doydoy_all_clones['"' + (doydoy_counter_clone - 1) + '"'] = new Array();
+                    if (typeof(doydoy_all_clones['"' + doydoy_counter_clone + '"']) == 'undefined'){
+                        doydoy_all_clones['"' + doydoy_counter_clone + '"'] = new Array();
                     }
 
-                    doydoy_all_clones['"' + (doydoy_counter_clone - 1) + '"']['parent'] = {id        : doydoy_new_id,
-                                                                             id_before : id_elt,
-                                                                             num_clone : doydoy_counter_clone,
-                                                                             name      : new_name,
-                                                                             elt       : $(this)};
+                    doydoy_all_clones['"' + doydoy_counter_clone + '"']['parent'] = {id        : doydoy_new_id,
+                                                                                     id_before : id_elt,
+                                                                                     num_clone : doydoy_counter_clone,
+                                                                                     name      : new_name,
+                                                                                     elt       : $(this)};
                     // Sauvegarde de ce nouveau parent dans la liste de tous les éléments cloner lors du dernier clonage
                     doydoy_last_clones['parent'] = {id        : doydoy_new_id,
                                                     id_before : id_elt,
@@ -265,14 +265,14 @@
                     }
 
                     // Sauvegarde de ce nouvel enfant dans la liste de tous les éléments cloner depuis le début
-                    if (typeof(doydoy_all_clones['"' + (i - 1) + '"']['child']) == 'undefined'){
-                        doydoy_all_clones['"' + (i - 1) + '"']['child'] = new Array();
+                    if (typeof(doydoy_all_clones['"' + i + '"']['child']) == 'undefined'){
+                        doydoy_all_clones['"' + i + '"']['child'] = new Array();
                     }
-                    doydoy_all_clones['"' + (i - 1) + '"']['child'][cpt_child] = {id        : new_id,
-                                                                    id_before : id_before,
-                                                                    num_clone : i,
-                                                                    name      : new_name,
-                                                                    elt       : $(this)};
+                    doydoy_all_clones['"' + i + '"']['child'][cpt_child] = {id        : new_id,
+                                                                            id_before : id_before,
+                                                                            num_clone : i,
+                                                                            name      : new_name,
+                                                                            elt       : $(this)};
 
                     // Sauvegarde de ce nouvel enfant dans la liste de tous les éléments cloner lors du dernier clonage
                     if (i == (doydoy_counter_clone - 1)){
@@ -289,9 +289,9 @@
 
                     // fonction appelée après la création d'un nouveau conteneur
                     if (params.each_child_callback != undefined){
-                        // paramètre 1 :(i - 1)   correspond à l'index du conteneur -> doydoy_all_clones[i - 1]                     -> commence à 0
-                        // paramètre 2 :cpt_child correspond à l'index de l'enfant  -> doydoy_all_clones[i - 1]['child'][cpt_child] -> commence à 0
-                        params.each_child_callback((i - 1), cpt_child);
+                        // paramètre 1 :(i - 1)   correspond à l'index du conteneur -> doydoy_all_clones[i]                     -> commence à 1 => Numéro du clonage
+                        // paramètre 2 :cpt_child correspond à l'index de l'enfant  -> doydoy_all_clones[i]['child'][cpt_child] -> commence à 0
+                        params.each_child_callback('"' + i + '"', cpt_child);
                     }
                     // Incrémentation de l'enfant pour passer au suivant
                     cpt_child++;
@@ -299,8 +299,8 @@
 
                 // fonction appelée après la création d'un nouveau conteneur
                 if (params.each_callback != undefined){
-                    // (i - 1) correspond à l'index du conteneur -> doydoy_all_clones[i - 1] -> commence à 0
-                    params.each_callback((i - 1));
+                    // (i - 1) correspond à l'index du conteneur -> doydoy_all_clones[i] -> commence à 1 => Numéro du clonage
+                    params.each_callback('"' + i + '"');
                 }
             }
             // Ré-initialisation du compteur de conteneurs (parents) créés
