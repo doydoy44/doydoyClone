@@ -119,9 +119,9 @@
                 function_plugin_name = 'after';
                 break;
         }
-
+        
         // Traverser tous les nœuds.
-        this.each(function() {
+        this.each(function() {                        
             // id sans le numéro d'incrémentation du futur conteneur (parent)
             var id_elt;
             // élément à cloner
@@ -155,6 +155,7 @@
 
             // Clonage de l'ensemble des éléments
             function function_clone(){
+                
                 // retour de l'ensemble des élements clonés
                 return $(elt_a_cloner).clone(true).each(function(){
                     // Détermination de l'd du parent cloné
@@ -219,7 +220,6 @@
 
                 // parcourt de tous les enfants du conteneur
                 $("#" + id_elt + "_" + i + " *").each(function(){
-                    
                     // Détermination du nouvel id de l'enfant en court
                     if (typeof($(this).attr('id')) != 'undefined'){
                         // récupération de l'id d'origine de l'enfant
@@ -280,17 +280,21 @@
                                                                   num_clone : i,
                                                                   name      : new_name,
                                                                   elt       : $(this)};
+                        /*                                          
                         // fonction appelée après la création d'un nouvel enfant du dernier conteneur
                         if (params.each_last_child_callback != undefined){
-                            params.each_last_child_callback(cpt_child);
+                            params.each_last_child_callback('"' + i + '"', id_elt + "_" + i, cpt_child, new_id);
                         }
+                        */
                     }
 
                     // fonction appelée après la création d'un nouveau conteneur
                     if (params.each_child_callback != undefined){
-                        // paramètre 1 :"i"       correspond à l'index du conteneur -> doydoy_all_clones[i]                     -> commence à 1 => Numéro du clonage
-                        // paramètre 2 :cpt_child correspond à l'index de l'enfant  -> doydoy_all_clones[i]['child'][cpt_child] -> commence à 0
-                        params.each_child_callback('"' + i + '"', cpt_child);
+                        // paramètre 1 : "i"              correspond à l'index du conteneur -> doydoy_all_clones[i]                     -> commence à 1 => Numéro du clonage
+                        // paramètre 2 : id_elt + "_" + i correspond à l'id du conteneur cloné
+                        // paramètre 3 : cpt_child        correspond à l'index de l'enfant  -> doydoy_all_clones[i]['child'][cpt_child] -> commence à 0
+                        // paramètre 4 : new_id           correspond à l'id de l'enfant cloné
+                        params.each_child_callback('"' + i + '"', id_elt + "_" + i, cpt_child, new_id);
                     }
                     // Incrémentation de l'enfant pour passer au suivant
                     cpt_child++;
@@ -298,8 +302,9 @@
 
                 // fonction appelée après la création d'un nouveau conteneur
                 if (params.each_callback != undefined){
-                    // "i" correspond à l'index du conteneur -> doydoy_all_clones[i] -> commence à 1 => Numéro du clonage
-                    params.each_callback('"' + i + '"');
+                    // paramètre 1 : "i" correspond à l'index du conteneur -> doydoy_all_clones[i] -> commence à 1 => Numéro du clonage
+                    // paramètre 2 : id_elt + "_" + i correspond à l'id du conteneur cloné
+                    params.each_callback('"' + i + '"', id_elt + "_" + i);
                 }
             }
             // Ré-initialisation du compteur de conteneurs (parents) créés
