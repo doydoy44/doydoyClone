@@ -129,8 +129,7 @@
             // numéro d'incrémentation du futur conteneur (parent)
             var doydoy_counter_clone = doydoy_counter;
 
-            // Initialisation des derniers éléments cloner
-            doydoy_last_clones = null;
+            // Initialisation des derniers éléments clonés
             doydoy_last_clones = [];
 
             // Initialisation du nouvel id
