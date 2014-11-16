@@ -94,6 +94,8 @@
         params = $.extend( {
                             method         : "",
                             target         : "",
+                            impact_name    : true,
+                            impact_for     : true,
                             new_name       : false,
                             new_all_name   : false,
                             new_all_id     : false,
@@ -163,11 +165,11 @@
 
                     $(this).attr('id', doydoy_new_id);
 
-                    // Détermination du nouveau nom du parent cloner si on a choisi l'option
+                    // Détermination du nouveau nom du parent cloné si on a choisi l'option
                     var new_name = "";
                     if (typeof($(this).attr('name')) != 'undefined'){
                         new_name = $(this).attr('name');
-                        if (params.new_name){
+                        if (params.new_name || params.impact_name){
                             new_name += "_" + doydoy_counter_clone;
                             $(this).attr('name', new_name);
                         }
@@ -178,6 +180,14 @@
                             $(this).attr('name', new_name);
                         }
                     }
+                    
+                    // Changement de l'attribut for qui fait référence à l'ancien id d'un input + "_" + numéro de clonage
+                    if (typeof($(this).attr('for')) != 'undefined'){
+                        if (params.impact_for){
+                            $(this).attr('for', $(this).attr('for') + "_" + doydoy_counter_clone);
+                        }
+                    }
+                    
                     // Sauvegarde de ce nouveau parent dans la liste de tous les éléments clonés depuis le début
                     if (typeof(doydoy_all_clones['"' + doydoy_counter_clone + '"']) == 'undefined'){
                         doydoy_all_clones['"' + doydoy_counter_clone + '"'] = [];
@@ -214,13 +224,13 @@
             // nouveau nom de l'enfant
             var new_name = "";
                 
-            // Ré-attribution des id des élements des conteneurs qui ont été créés
+            // Ré-attribution des ids des élements des conteneurs qui ont été créés
             for(var i = doydoy_counter; i < (doydoy_counter_clone); i++){
                 cpt_child = 0;
 
                 // parcourt de tous les enfants du conteneur
                 $("#" + id_elt + "_" + i + " *").each(function(){
-                    // Détermination du nouvel id de l'enfant en court
+                    // Détermination du nouvel id de l'enfant en cours
                     if (typeof($(this).attr('id')) != 'undefined'){
                         // récupération de l'id d'origine de l'enfant
                         id_before = $(this).attr('id');
@@ -246,7 +256,7 @@
                     // Changement du nom si on l'a demandé (params.new_name : true)
                     if (typeof($(this).attr('name')) != 'undefined'){
                         new_name = $(this).attr('name');
-                        if (params.new_all_name){
+                        if (params.new_all_name || params.impact_name){
                             new_name += "_" + i;
                             $(this).attr('name', new_name);
                         }
@@ -261,6 +271,13 @@
                         }
                         else
                             new_name = "";
+                    }
+                    
+                    // nouvel référence pour l'attribut "for" d'un label qui fait référence à l'ancien id d'un input + "_" + numéro de clonage
+                    if (typeof($(this).attr('for')) != 'undefined'){
+                        if (params.impact_for){
+                            $(this).attr('for', $(this).attr('for') + "_" + i);
+                        }
                     }
 
                     // Sauvegarde de ce nouvel enfant dans la liste de tous les éléments clonés depuis le début
