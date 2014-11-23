@@ -209,16 +209,16 @@
                     }
 
                     doydoy_all_clones['"' + doydoy_counter_clone + '"'].parent = {id        : doydoy_new_id,
-                                                                                     id_before : id_elt,
-                                                                                     num_clone : doydoy_counter_clone,
-                                                                                     name      : new_name_parent,
-                                                                                     elt       : $(this)};
+                                                                                  id_before : id_elt,
+                                                                                  num_clone : doydoy_counter_clone,
+                                                                                  name      : new_name_parent,
+                                                                                  elt       : $(this)};
                     // Sauvegarde de ce nouveau parent dans la liste de tous les éléments clonés lors du dernier clonage
                     doydoy_last_clones.parent = {id        : doydoy_new_id,
-                                                    id_before : id_elt,
-                                                    num_clone : doydoy_counter_clone,
-                                                    name      : new_name_parent,
-                                                    elt       : $(this)};
+                                                 id_before : id_elt,
+                                                 num_clone : doydoy_counter_clone,
+                                                 name      : new_name_parent,
+                                                 elt       : $(this)};
                     // incrémentation du numéro de clonage pour éviter d'avoir les mêmes ids
                     doydoy_counter_clone += 1;
                 });
@@ -284,18 +284,18 @@
                         doydoy_all_clones['"' + cpt_for + '"'].child = [];
                     }
                     doydoy_all_clones['"' + cpt_for + '"'].child[cpt_child] = {id        : new_id,
-                                                                            id_before : id_before,
-                                                                            num_clone : cpt_for,
-                                                                            name      : new_name,
-                                                                            elt       : $(this)};
+                                                                               id_before : id_before,
+                                                                               num_clone : cpt_for,
+                                                                               name      : new_name,
+                                                                               elt       : $(this)};
 
                     // Sauvegarde de ce nouvel enfant dans la liste de tous les éléments clonés lors du dernier clonage
                     if (cpt_for === (doydoy_counter_clone - 1)) {
                         doydoy_last_clones.child[cpt_child] = {id        : new_id,
-                                                                  id_before : id_before,
-                                                                  num_clone : cpt_for,
-                                                                  name      : new_name,
-                                                                  elt       : $(this)};
+                                                               id_before : id_before,
+                                                               num_clone : cpt_for,
+                                                               name      : new_name,
+                                                               elt       : $(this)};
                         /*                                          
                         // fonction appelée après la création d'un nouvel enfant du dernier conteneur
                         if (params.each_last_child_callback != undefined){
@@ -308,8 +308,8 @@
                     if (params.each_child_callback !== undefined) {
                         // paramètre 1 : "cpt_for"              correspond à l'index du conteneur -> doydoy_all_clones[cpt_for]                     -> commence à 1 => Numéro du clonage
                         // paramètre 2 : id_elt + "_" + cpt_for correspond à l'id du conteneur cloné
-                        // paramètre 3 : cpt_child        correspond à l'index de l'enfant  -> doydoy_all_clones[cpt_for]['child'][cpt_child] -> commence à 0
-                        // paramètre 4 : new_id           correspond à l'id de l'enfant cloné
+                        // paramètre 3 : cpt_child              correspond à l'index de l'enfant  -> doydoy_all_clones[cpt_for]['child'][cpt_child] -> commence à 0
+                        // paramètre 4 : new_id                 correspond à l'id de l'enfant cloné
                         params.each_child_callback('"' + cpt_for + '"', id_elt + "_" + cpt_for, cpt_child, new_id);
                     }
                     // Incrémentation de l'enfant pour passer au suivant
