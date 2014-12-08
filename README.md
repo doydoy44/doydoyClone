@@ -163,9 +163,9 @@ The doydoyCloneAfter function is exactly the same function as the method paramet
 with doydoyClone : 
 ```      
         $("#div_id_after").doydoyClone({
-                                        target: $("#div_target_after"), 
+                                        target: $("#div_target_after"),
                                         method: "after"
-                                        });                                                     
+                                        });
 ```        
 
 ##doydoyCloneBefore :
@@ -177,7 +177,7 @@ with doydoyClone :
         $("#div_id_before").doydoyClone({
                                         target: $("#div_target_before"), 
                                         method: "before"
-                                        });                                      
+                                        });
 ```               
                                             
 ##doydoyCloneAppend :
@@ -189,7 +189,7 @@ with doydoyClone :
         $("#div_id_append").doydoyClone({
                                         target: $("#div_target_append"), 
                                         method: "append"
-                                        });                                       
+                                        });
 ```            
                                                
 ##doydoyClonePrepend :
@@ -201,7 +201,7 @@ with doydoyClone :
         $("#div_id_prepend").doydoyClone({
                                         target: $("#div_target_prepend"), 
                                         method: "prepend"
-                                        });                                                
+                                        });
 ```                
 
 Documentation and examples (in french):  http://www.doydoyclone.doydoy44.com/
