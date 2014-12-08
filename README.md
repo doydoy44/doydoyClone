@@ -97,16 +97,16 @@ The doydoyGetCounter() function simply lets you know the number of clones that h
 The doydoyGetLastClones() function to retrieve all elements cloned during the last cloning.
 The function returns an array like this:  
 ```        
-        array['"' + cloning_number + '"']['parent'] = {id        : doydoy_new_id,
-                                                       id_before : id_elt,
-                                                       num_clone : doydoy_counter_clone,
-                                                       name      : new_name,
-                                                       elt       : $(this)}
-                                         ['child'][child_number] = {id        : new_id,
-                                                                    id_before : id_before,
-                                                                    num_clone : i,
-                                                                    name      : new_name,
-                                                                    elt       : $(this)}
+    array['"' + cloning_number + '"']['parent'] = {id        : doydoy_new_id,
+                                                   id_before : id_elt,
+                                                   num_clone : doydoy_counter_clone,
+                                                   name      : new_name,
+                                                   elt       : $(this)}
+                                     ['child'][child_number] = {id        : new_id,
+                                                                id_before : id_before,
+                                                                num_clone : i,
+                                                                name      : new_name,
+                                                                elt       : $(this)}
 ```                                                                        
 Call:
 `$().doydoyGetAllClones();`
@@ -115,16 +115,16 @@ Call:
 The doydoyGetLastClones () function to retrieve all elements cloned during the last cloning.
 The function returns an array like this:  
 ```        
-        array['parent'] = {id        : doydoy_new_id,
-                           id_before : id_elt,
-                           num_clone : cloning_number,
-                           name      : new_name,
-                           elt       : $(this)}
-             ['child'][child_number] = {id        : new_id,
-                                         id_before : id_before,
-                                         num_clone : cloning_number,
-                                         name      : new_name,
-                                         elt       : $(this)}
+    array['parent'] = {id        : doydoy_new_id,
+                       id_before : id_elt,
+                       num_clone : cloning_number,
+                       name      : new_name,
+                       elt       : $(this)}
+         ['child'][child_number] = {id        : new_id,
+                                     id_before : id_before,
+                                     num_clone : cloning_number,
+                                     name      : new_name,
+                                     elt       : $(this)}
 ```                                                                 
 Call:
 `$().doydoyGetLastClones();`   
