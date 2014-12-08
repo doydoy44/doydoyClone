@@ -121,10 +121,10 @@ The function returns an array like this:
                        name      : new_name,
                        elt       : $(this)}
          ['child'][child_number] = {id        : new_id,
-                                     id_before : id_before,
-                                     num_clone : cloning_number,
-                                     name      : new_name,
-                                     elt       : $(this)}
+                                    id_before : id_before,
+                                    num_clone : cloning_number,
+                                    name      : new_name,
+                                    elt       : $(this)}
 ```                                                                 
 Call:
 `$().doydoyGetLastClones();`   
